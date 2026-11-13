@@ -1,0 +1,358 @@
+<title>Réglages Bravia AG8</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Plan : une colonne de travail à tenir en main devant la TV ; bandeau de mire 75 % en tête, une étape à la fois, liste et mires en onglets. */
+:root {
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --ink: #141820;
+  --muted: #586273;
+  --line: #d5dbe4;
+  --accent: #a85a06;
+  --accent-ink: #ffffff;
+  --accent-soft: #fbeedd;
+  --ok: #1d7a4b;
+  --ok-soft: #e1f3e9;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0d6;
+  --low: #9b2c2c;
+  --low-soft: #fbe5e5;
+  --key-bg: #1b1f27;
+  --key-ink: #f3f5f8;
+  --bar-1: #bfbfbf; --bar-2: #bfbf00; --bar-3: #00bfbf; --bar-4: #00bf00; --bar-5: #bf00bf; --bar-6: #bf0000; --bar-7: #0000bf;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #08090b; --surface: #121419; --surface-2: #181b21; --ink: #e9ecf1; --muted: #9aa4b2; --line: #272c35;
+    --accent: #f2a849; --accent-ink: #1a1206; --accent-soft: #2b1f10;
+    --ok: #5fd39a; --ok-soft: #10261b; --warn: #f0c25a; --warn-soft: #2a2210; --low: #f08a8a; --low-soft: #2c1414;
+    --key-bg: #e9ecf1; --key-ink: #121419;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #08090b; --surface: #121419; --surface-2: #181b21; --ink: #e9ecf1; --muted: #9aa4b2; --line: #272c35;
+  --accent: #f2a849; --accent-ink: #1a1206; --accent-soft: #2b1f10;
+  --ok: #5fd39a; --ok-soft: #10261b; --warn: #f0c25a; --warn-soft: #2a2210; --low: #f08a8a; --low-soft: #2c1414;
+  --key-bg: #e9ecf1; --key-ink: #121419;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.bars { display: grid; grid-template-columns: repeat(7, 1fr); height: 6px; }
+.bars span:nth-child(1) { background: var(--bar-1); } .bars span:nth-child(2) { background: var(--bar-2); }
+.bars span:nth-child(3) { background: var(--bar-3); } .bars span:nth-child(4) { background: var(--bar-4); }
+.bars span:nth-child(5) { background: var(--bar-5); } .bars span:nth-child(6) { background: var(--bar-6); }
+.bars span:nth-child(7) { background: var(--bar-7); }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top .wrap { padding-block: 12px 10px; display: grid; gap: 10px; }
+.idrow { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: 1.65rem; letter-spacing: .01em; margin: 0; line-height: 1.1; text-wrap: balance; }
+.model { font-family: var(--f-mono); font-size: .78rem; color: var(--muted); }
+.progress { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
+.meter { height: 8px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .3s ease; }
+.count { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+nav.tabs { display: flex; gap: 6px; }
+nav.tabs button { flex: 1; font: 600 .95rem/1 var(--f-display); letter-spacing: .04em; text-transform: uppercase; padding: 10px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); cursor: pointer; }
+nav.tabs button[aria-selected="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+main .wrap { padding-block: 18px 40px; display: grid; gap: 18px; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font: 600 .78rem/1.2 var(--f-display); letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.stepcard h2 { font-family: var(--f-display); font-weight: 600; font-size: 1.45rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: .9rem; }
+.crumbs .sep { color: var(--muted); }
+.crumbs .c { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.crumbs .key { background: var(--key-bg); color: var(--key-ink); border-radius: 6px; padding: 3px 8px; font: 600 .78rem/1.4 var(--f-mono); letter-spacing: .03em; }
+.label { font: 600 .74rem/1.2 var(--f-display); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.value { font-family: var(--f-mono); font-size: 1.05rem; background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; overflow-wrap: anywhere; }
+.why { margin: 0; color: var(--ink); max-width: 65ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .82rem; }
+.pill { border-radius: 99px; padding: 2px 10px; font-weight: 600; font-size: .76rem; border: 1px solid transparent; }
+.pill.p1 { background: var(--accent-soft); color: var(--accent); }
+.pill.p2, .pill.p3 { background: var(--surface-2); color: var(--muted); border-color: var(--line); }
+.pill.haute { background: var(--ok-soft); color: var(--ok); }
+.pill.moyenne { background: var(--warn-soft); color: var(--warn); }
+.pill.basse { background: var(--low-soft); color: var(--low); }
+.src a { color: var(--muted); }
+.note label { display: block; margin-bottom: 4px; }
+.note textarea { width: 100%; min-height: 44px; resize: vertical; font: inherit; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.actions { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; }
+.btn { font: 600 1rem/1 var(--f-display); letter-spacing: .03em; padding: 13px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); cursor: pointer; min-height: 46px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.done { background: var(--ok); color: var(--surface); border-color: var(--ok); }
+.btn:disabled { opacity: .4; cursor: default; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; font-size: .88rem; color: var(--muted); }
+.toolbar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.toolbar select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; max-width: 100%; }
+.save { font-size: .8rem; color: var(--muted); }
+.section h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.2rem; margin: 0; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.section h3 small { font: 500 .8rem var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.rows { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 28px 1fr; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.row input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--ok); }
+.row .t { font-weight: 600; }
+.row .v { font-family: var(--f-mono); font-size: .84rem; color: var(--muted); overflow-wrap: anywhere; }
+.row button.open { all: unset; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.row.isdone .t { text-decoration: line-through; text-decoration-color: var(--muted); color: var(--muted); }
+.facts { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.facts li { padding-left: 14px; position: relative; max-width: 70ch; }
+.facts li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.patterns { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.pat { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: pointer; background: var(--surface); padding: 0; text-align: left; color: var(--ink); font: inherit; }
+.pat .sw { height: 64px; }
+.pat .nm { padding: 8px 10px; font-size: .85rem; font-weight: 600; }
+.pat .nm small { display: block; font-weight: 400; color: var(--muted); }
+ol.howto { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; max-width: 68ch; }
+#full { position: fixed; inset: 0; z-index: 50; cursor: none; }
+#full .hint { position: absolute; left: 50%; bottom: max(24px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); font: 500 .85rem var(--f-body); padding: 6px 12px; border-radius: 99px; background: rgba(0,0,0,.55); color: #fff; transition: opacity .6s; white-space: nowrap; }
+.fine { font-size: .82rem; color: var(--muted); max-width: 68ch; margin: 0; }
+@media (max-width: 420px) {
+  h1 { font-size: 1.4rem; }
+  .actions { grid-template-columns: 1fr 1fr; }
+  .actions .primary, .actions .done { grid-column: 1 / -1; grid-row: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .meter i, #full .hint { transition: none; } }
+</style>
+
+<div class="bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<header class="top">
+  <div class="wrap">
+    <div class="idrow">
+      <h1>Réglages Bravia AG8</h1>
+      <span class="model">KD-65AG8 · OLED 65″ · Android TV</span>
+    </div>
+    <div class="progress">
+      <div class="meter" role="progressbar" aria-label="Avancement" aria-valuemin="0" aria-valuemax="100" id="meter"><i id="meterbar"></i></div>
+      <span class="count" id="count">0 / 0</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-pas" aria-selected="true" data-view="pas">Pas à pas</button>
+      <button role="tab" id="tab-liste" aria-selected="false" data-view="liste">Liste</button>
+      <button role="tab" id="tab-mires" aria-selected="false" data-view="mires">Mires</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section id="view-pas" aria-labelledby="tab-pas"></section>
+    <section id="view-liste" aria-labelledby="tab-liste" hidden></section>
+    <section id="view-mires" aria-labelledby="tab-mires" hidden></section>
+  </div>
+</main>
+
+<div id="full" hidden><span class="hint">Touchez ou appuyez sur Échap pour sortir</span></div>
+
+<script>
+/* ---------- Données ---------- */
+const TV = /*TV*/{};
+const STEPS = /*STEPS*/[];
+const FACTS = /*FACTS*/[];
+const PATTERNS = /*PATTERNS*/[];
+
+/* ---------- État ---------- */
+const LS_KEY = "bravia-ag8-avancement-v1";
+const state = { done: {}, notes: {}, idx: 0, essentiel: false, section: "", view: "pas" };
+let db = null, saveMode = "local";
+
+function lsRead() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { return {}; } }
+function lsWrite() { try { localStorage.setItem(LS_KEY, JSON.stringify({ done: state.done, notes: state.notes, idx: state.idx, essentiel: state.essentiel })); } catch (e) {} }
+(function boot() { const s = lsRead(); Object.assign(state, { done: s.done || {}, notes: s.notes || {}, idx: s.idx || 0, essentiel: !!s.essentiel }); })();
+
+function today() { const d = new Date(); return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear(); }
+
+const pending = new Map();
+async function persist(id) {
+  lsWrite();
+  if (!db) return;
+  if (pending.get(id)) { pending.set(id, "again"); return; }
+  pending.set(id, "busy");
+  try {
+    do {
+      pending.set(id, "busy");
+      await db.doc("avancement/" + id).set({ fait: !!state.done[id], le: state.done[id] || "", note: state.notes[id] || "" });
+    } while (pending.get(id) === "again");
+    setSave("Avancement enregistré");
+  } catch (e) {
+    setSave("Avancement gardé sur cet appareil seulement");
+  } finally { pending.delete(id); }
+}
+function setSave(t) { document.querySelectorAll(".save").forEach(el => el.textContent = t); }
+
+/* ---------- Aides ---------- */
+const KEYS = ["HOME", "ACTION MENU", "INPUT", "SETTINGS", "OPTIONS", "BACK", "MENU"];
+function el(tag, attrs, ...kids) {
+  const n = document.createElement(tag);
+  for (const k in (attrs || {})) {
+    if (k === "class") n.className = attrs[k];
+    else if (k === "text") n.textContent = attrs[k];
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), attrs[k]);
+    else n.setAttribute(k, attrs[k]);
+  }
+  kids.flat().forEach(c => c != null && n.append(c.nodeType ? c : document.createTextNode(c)));
+  return n;
+}
+function crumbs(chemin) {
+  const parts = String(chemin).split(/\s*>\s*/).filter(Boolean);
+  const box = el("div", { class: "crumbs" });
+  parts.forEach((p, i) => {
+    if (i) box.append(el("span", { class: "sep", "aria-hidden": "true", text: "›" }));
+    const isKey = KEYS.some(k => p.toUpperCase().includes("BOUTON " + k) || p.toUpperCase() === k);
+    box.append(el("span", { class: isKey ? "key" : "c", text: p.replace(/^bouton\s+/i, "") }));
+  });
+  return box;
+}
+function visible() { return STEPS.filter(s => (!state.essentiel || s.priorite === "1") && (!state.section || s.section === state.section)); }
+function sections() { return [...new Set(STEPS.map(s => s.section))]; }
+const PRIO = { "1": "Essentiel", "2": "Utile", "3": "Confort" };
+const CONF = { haute: "Source vérifiée", moyenne: "Intitulé à confirmer à l'écran", basse: "Peu documenté" };
+
+/* ---------- Rendu ---------- */
+function renderProgress() {
+  const n = STEPS.length, d = STEPS.filter(s => state.done[s.id]).length;
+  document.getElementById("count").textContent = d + " / " + n;
+  const pct = n ? Math.round(d * 100 / n) : 0;
+  document.getElementById("meterbar").style.width = pct + "%";
+  document.getElementById("meter").setAttribute("aria-valuenow", pct);
+}
+
+function renderPas() {
+  const root = document.getElementById("view-pas");
+  root.replaceChildren();
+  const list = visible();
+  if (state.idx >= list.length) state.idx = Math.max(0, list.length - 1);
+  const secSel = el("select", { id: "sec-filter", "aria-label": "Rubrique", onchange: e => { state.section = e.target.value; state.idx = 0; render(); } },
+    el("option", { value: "", text: "Toutes les rubriques" }),
+    sections().map(s => { const o = el("option", { value: s, text: s }); if (s === state.section) o.selected = true; return o; }));
+  const ess = el("input", { type: "checkbox", id: "ess", onchange: e => { state.essentiel = e.target.checked; state.idx = 0; lsWrite(); render(); } });
+  ess.checked = state.essentiel;
+  root.append(el("div", { class: "toolbar" }, el("label", { for: "ess" }, ess, "Essentiel seulement"), secSel));
+  if (!list.length) { root.append(el("div", { class: "card" }, el("p", { class: "why", text: "Aucune étape dans ce filtre." }))); return; }
+  const s = list[state.idx];
+  const done = !!state.done[s.id];
+  const note = el("textarea", { id: "note-" + s.id, placeholder: "Valeur lue à l'écran, remarque…", oninput: e => { state.notes[s.id] = e.target.value; clearTimeout(note._t); note._t = setTimeout(() => persist(s.id), 700); } });
+  note.value = state.notes[s.id] || "";
+  const card = el("article", { class: "card stepcard" },
+    el("div", { class: "eyebrow", text: s.section + " · étape " + (state.idx + 1) + " sur " + list.length }),
+    el("h2", { text: s.titre }),
+    el("div", {}, el("div", { class: "label", text: "Où aller" }), crumbs(s.chemin)),
+    el("div", {}, el("div", { class: "label", text: "Régler sur" }), el("div", { class: "value", text: s.valeur })),
+    el("p", { class: "why", text: s.pourquoi }),
+    el("div", { class: "meta" },
+      el("span", { class: "pill p" + s.priorite, text: PRIO[s.priorite] || "" }),
+      el("span", { class: "pill " + s.confiance, text: CONF[s.confiance] || "" }),
+      s.sources && s.sources[0] ? el("span", { class: "src" }, el("a", { href: s.sources[0].url, target: "_blank", rel: "noopener", text: "Source" })) : null),
+    el("div", { class: "note" }, el("label", { class: "label", for: "note-" + s.id, text: "Relevé" }), note),
+    el("div", { class: "actions" },
+      el("button", { class: "btn", id: "prev", onclick: () => { state.idx--; lsWrite(); render(); } , ...(state.idx === 0 ? { disabled: "" } : {}) }, "Précédent"),
+      el("button", { class: "btn " + (done ? "done" : "primary"), id: "mark", onclick: () => toggle(s.id, true) }, done ? "Fait le " + state.done[s.id] : "Marquer fait"),
+      el("button", { class: "btn", id: "next", onclick: () => { state.idx++; lsWrite(); render(); }, ...(state.idx >= list.length - 1 ? { disabled: "" } : {}) }, "Suivant")),
+    el("div", { class: "save", text: saveMode === "db" ? "Avancement enregistré" : "Avancement gardé sur cet appareil" }));
+  root.append(card);
+}
+
+function renderListe() {
+  const root = document.getElementById("view-liste");
+  root.replaceChildren();
+  sections().forEach(sec => {
+    const items = STEPS.filter(s => s.section === sec);
+    const d = items.filter(s => state.done[s.id]).length;
+    const rows = el("div", { class: "rows" });
+    items.forEach(s => {
+      const cb = el("input", { type: "checkbox", id: "cb-" + s.id, "aria-label": s.titre, onchange: () => toggle(s.id, false) });
+      cb.checked = !!state.done[s.id];
+      rows.append(el("div", { class: "row" + (state.done[s.id] ? " isdone" : "") }, cb,
+        el("button", { class: "open", onclick: () => { state.section = ""; state.essentiel = false; state.idx = STEPS.indexOf(s); switchView("pas"); } },
+          el("span", { class: "t", text: s.titre }), el("span", { class: "v", text: s.valeur }))));
+    });
+    root.append(el("div", { class: "card section" }, el("h3", {}, sec, el("small", { text: d + " / " + items.length })), rows));
+  });
+  if (TV.lignes && TV.lignes.length || FACTS.length) {
+    const ul = el("ul", { class: "facts" });
+    (TV.lignes || []).concat(FACTS).forEach(f => ul.append(el("li", { text: f })));
+    root.append(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Fiche du téléviseur" }), ul));
+  }
+}
+
+function renderMires() {
+  const root = document.getElementById("view-mires");
+  root.replaceChildren();
+  const grid = el("div", { class: "patterns" });
+  PATTERNS.forEach(p => grid.append(el("button", { class: "pat", onclick: () => showFull(p.color) },
+    el("div", { class: "sw", style: "background:" + p.color }), el("div", { class: "nm" }, p.nom, el("small", { text: p.usage })))));
+  root.append(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: "Contrôle de la dalle" }),
+    el("ol", { class: "howto" }, (TV.mires || []).map(t => el("li", { text: t }))),
+    grid,
+    el("p", { class: "fine", text: TV.miresNote || "" })));
+}
+
+function render() { renderProgress(); if (state.view === "pas") renderPas(); if (state.view === "liste") renderListe(); if (state.view === "mires") renderMires(); }
+
+function toggle(id, advance) {
+  if (state.done[id]) delete state.done[id]; else state.done[id] = today();
+  persist(id);
+  if (advance && state.done[id]) { const list = visible(); if (state.idx < list.length - 1) state.idx++; }
+  render();
+}
+
+function switchView(v) {
+  state.view = v;
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === v)));
+  ["pas", "liste", "mires"].forEach(k => document.getElementById("view-" + k).hidden = k !== v);
+  render();
+  window.scrollTo({ top: 0 });
+}
+document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => switchView(b.dataset.view)));
+
+/* ---------- Mires plein écran ---------- */
+const full = document.getElementById("full");
+function showFull(color) {
+  full.style.background = color; full.hidden = false;
+  const h = full.querySelector(".hint"); h.style.opacity = "1"; setTimeout(() => h.style.opacity = "0", 2500);
+  if (full.requestFullscreen) full.requestFullscreen().catch(() => {});
+}
+function hideFull() { full.hidden = true; if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); }
+full.addEventListener("click", hideFull);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !full.hidden) hideFull(); });
+document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement && !full.hidden) full.hidden = true; });
+
+render();
+
+/* ---------- Stockage partagé (si disponible) ---------- */
+(async () => {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const d = await window.claude.use("db");
+    if (!d) return;
+    db = d;
+    const timer = setTimeout(() => setSave("Avancement gardé sur cet appareil (stockage injoignable)"), 10000);
+    db.collection("avancement").onSnapshot(snap => {
+      clearTimeout(timer);
+      if (!snap.metadata.fromCache) saveMode = "db";
+      snap.docs.forEach(doc => {
+        const v = doc.data() || {};
+        if (pending.has(doc.id)) return;
+        if (v.fait) state.done[doc.id] = v.le || today(); else delete state.done[doc.id];
+        if (typeof v.note === "string") state.notes[doc.id] = v.note;
+      });
+      lsWrite();
+      const ta = document.activeElement;
+      if (ta && ta.tagName === "TEXTAREA") { renderProgress(); return; }
+      render();
+    }, () => { clearTimeout(timer); db = null; saveMode = "local"; setSave("Avancement gardé sur cet appareil"); });
+  } catch (e) {}
+})();
+</script>
